@@ -99,9 +99,30 @@ var echecc = [];
 var ctExec = [];
 var avcCount = [];
 var rafCount = [];
+var ceCount = 0;
   for (var i = 0; i < sheets.length; i++) {
     var sheetName = sheets[i].getName();
     if (sheetName.indexOf('<') === -1 && sheetName.indexOf('>') === -1) {
+
+
+      var data = sheets[i].getDataRange().getValues();
+      var ceCount = 0;
+      for (var j=2; j<data.length; j++){
+        if (data[j][0].toString().trim() !== ""){
+          ceCount++;
+          Logger.log(ceCount)
+        }
+      }
+
+
+
+
+
+
+
+
+
+
       var data = sheets[i].getDataRange().getValues();
       var enAttenteCt = 0;
       var enCoursCt = 0;
@@ -135,16 +156,21 @@ var rafCount = [];
 
     
         // var ctc = count[i];
-  
-        ec = (koCT / 4) * 100; 
+    if (parseInt(ceCount)!==0){
+        ec = (koCT / parseInt(ceCount)) * 100;
+
         var percentage =(ec + "%");
-        avc = (okCt / 4) * 100;
+        avc = (okCt / parseInt(ceCount)) * 100;
         var avcper =(avc + "%");
         
 
-        raf = (enCoursCt+bCt+koCT / 4) *100;
+        raf = (enCoursCt+bCt+koCT / parseInt(ceCount)) *100;
         var rafperccentage = (raf +"%");
-
+    } else{
+percentage = "0%";
+avcper = "0%";
+rafperccentage = "0%";
+    }
 
 
 
